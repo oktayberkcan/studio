@@ -1,3 +1,34 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-bg",
+      "description": "Luxurious modern barber shop interior",
+      "imageUrl": "https://picsum.photos/seed/barber1/1920/1080",
+      "imageHint": "barber salon"
+    },
+    {
+      "id": "gallery-1",
+      "description": "Professional haircut in progress",
+      "imageUrl": "https://picsum.photos/seed/barber2/800/800",
+      "imageHint": "men haircut"
+    },
+    {
+      "id": "gallery-2",
+      "description": "Classic beard trim detailing",
+      "imageUrl": "https://picsum.photos/seed/barber3/800/800",
+      "imageHint": "beard grooming"
+    },
+    {
+      "id": "gallery-3",
+      "description": "Barber shop vintage interior details",
+      "imageUrl": "https://picsum.photos/seed/barber4/800/800",
+      "imageHint": "barber chair"
+    },
+    {
+      "id": "gallery-4",
+      "description": "Styling products and tools",
+      "imageUrl": "https://picsum.photos/seed/barber5/800/800",
+      "imageHint": "grooming tools"
+    }
+  ]
 }
