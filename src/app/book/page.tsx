@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -15,13 +14,13 @@ import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CalendarIcon, Clock, Scissors, User, Mail, Phone } from "lucide-react";
 
-const formSchema = z.zod.object({
-  fullName: z.zod.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.zod.string().email({ message: "Please enter a valid email." }),
-  phone: z.zod.string().min(10, { message: "Please enter a valid phone number." }),
-  serviceType: z.zod.string().min(1, { message: "Please select a service." }),
-  date: z.zod.string().min(1, { message: "Please select a date." }),
-  time: z.zod.string().min(1, { message: "Please select a time." }),
+const formSchema = z.object({
+  fullName: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  email: z.string().email({ message: "Please enter a valid email." }),
+  phone: z.string().min(10, { message: "Please enter a valid phone number." }),
+  serviceType: z.string().min(1, { message: "Please select a service." }),
+  date: z.string().min(1, { message: "Please select a date." }),
+  time: z.string().min(1, { message: "Please select a time." }),
 });
 
 export default function BookPage() {
@@ -43,40 +42,38 @@ export default function BookPage() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
-    try {
-      // 1. Store in Firestore
-      await addDoc(collection(db, "appointments"), {
-        ...values,
-        createdAt: serverTimestamp(),
-      });
-
-      // 2. Post to Webhook (as requested)
-      // Note: URL is empty [] as requested in prompt, so we skip if empty or use a fallback
-      const webhookUrl = ""; // Add your webhook URL here
-      if (webhookUrl) {
-        await fetch(webhookUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(values),
-        });
-      }
-
-      setIsSuccess(true);
-      toast({
-        title: "Appointment Booked!",
-        description: `Thank you ${values.fullName}, we've received your request.`,
-      });
-      form.reset();
-    } catch (error) {
-      console.error("Submission error:", error);
+    
+    // 1. Store in Firestore (initiating mutation without blocking for responsiveness)
+    addDoc(collection(db, "appointments"), {
+      ...values,
+      createdAt: serverTimestamp(),
+    }).catch((error) => {
+      console.error("Firestore error:", error);
       toast({
         variant: "destructive",
         title: "Submission Error",
-        description: "There was a problem booking your appointment. Please try again.",
+        description: "There was a problem saving your appointment to our database.",
       });
-    } finally {
-      setIsSubmitting(false);
+    });
+
+    // 2. Post to Webhook (as requested)
+    const webhookUrl = ""; 
+    if (webhookUrl) {
+      fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      }).catch(error => console.error("Webhook error:", error));
     }
+
+    // Immediately update UI to show success for better UX
+    setIsSuccess(true);
+    setIsSubmitting(false);
+    toast({
+      title: "Appointment Booked!",
+      description: `Thank you ${values.fullName}, we've received your request.`,
+    });
+    form.reset();
   }
 
   if (isSuccess) {
