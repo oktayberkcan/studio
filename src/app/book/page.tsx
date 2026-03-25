@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import { z } from "zod";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { Button } from "@/components/ui/button";
@@ -45,7 +45,7 @@ export default function BookPage() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     
-    // Firestore'a kaydet
+    // Firestore'a kaydet (Non-blocking)
     addDoc(collection(db, "appointments"), {
       ...values,
       status: "pending",
@@ -55,16 +55,18 @@ export default function BookPage() {
       toast({
         variant: "destructive",
         title: "Kayıt Hatası",
-        description: "Randevunuz kaydedilirken bir sorun oluştu. Lütfen tekrar deneyin.",
+        description: "Randevunuz kaydedilirken bir sorun oluştu.",
       });
     });
-    // ✅ YENİ: n8n Webhook'a gönder
+
+    // Opsiyonel Webhook
     fetch("https://nonoral-willetta-provincially.ngrok-free.app/webhook-test/randevu", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
-    }).catch((error) => console.error("Webhook error:", error));
-    // Başarı durumuna geç
+    }).catch(() => {});
+
+    // Başarı simülasyonu
     setTimeout(() => {
       setIsSuccess(true);
       setIsSubmitting(false);
@@ -238,10 +240,6 @@ export default function BookPage() {
           </Form>
         </CardContent>
       </Card>
-      
-      <p className="mt-12 text-center text-sm text-muted-foreground/60 leading-relaxed max-w-md mx-auto">
-        Randevu alarak hizmet koşullarımızı kabul etmiş sayılırsınız. Lütfen randevu saatinizden 10 dakika önce şubemizde olunuz.
-      </p>
     </div>
   );
 }

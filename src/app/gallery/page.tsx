@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Scissors, Zap, Sparkles, Wind, CheckCircle } from "lucide-react";
+import { Scissors, Zap, Sparkles, Wind, CheckCircle, Store, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -11,65 +11,65 @@ const portfolioItems = [
   {
     id: "gallery-1",
     title: "Modern Skin Fade",
-    category: "Saç Kesimi",
+    category: "Kesim",
     icon: <Scissors className="h-4 w-4" />,
-    description: "Sıfırdan mükemmel geçişe uzanan keskin hatlar."
+    description: "Sıfırdan kusursuz geçişe uzanan usta işi fade kesim."
   },
   {
     id: "gallery-2",
-    title: "Royal Sakal Bakımı",
-    category: "Sakal Tasarımı",
+    title: "Royal Sakal Tasarımı",
+    category: "Sakal",
     icon: <Zap className="h-4 w-4" />,
-    description: "Yüz hatlarını belirginleştiren özel şekillendirme."
+    description: "Yüz hatlarınıza uygun, keskin hatlı sakal şekillendirme."
+  },
+  {
+    id: "gallery-10", // Note: fallback to picsum if ID mismatch, but hints will fix
+    title: "Salon Deneyimi",
+    category: "İç Mekan",
+    icon: <Store className="h-4 w-4" />,
+    description: "Premium hizmet sunduğumuz modern ve şık salonumuz."
   },
   {
     id: "gallery-3",
     title: "Geleneksel Tıraş",
-    category: "Bakım & Terapi",
+    category: "Klasik",
     icon: <Wind className="h-4 w-4" />,
-    description: "Sıcak havlu ve ustura ile pürüzsüz deneyim."
-  },
-  {
-    id: "gallery-4",
-    title: "Klasik Pompadour",
-    category: "Saç Kesimi",
-    icon: <Scissors className="h-4 w-4" />,
-    description: "Zamana meydan okuyan hacimli ve parlak stil."
+    description: "Sıcak havlu eşliğinde ustura ile pürüzsüz bir deneyim."
   },
   {
     id: "gallery-5",
-    title: "Detoks Cilt Bakımı",
-    category: "Bakım & Terapi",
+    title: "Derin Cilt Bakımı",
+    category: "Bakım",
     icon: <Sparkles className="h-4 w-4" />,
-    description: "Erkek cildi için özel buhar ve maske terapisi."
+    description: "Erkek cildi için özel olarak tasarlanmış maske ve terapi."
+  },
+  {
+    id: "gallery-11",
+    title: "Klasik Detaylar",
+    category: "İç Mekan",
+    icon: <Camera className="h-4 w-4" />,
+    description: "Her detayında konforu ve lüksü hissedeceğiniz köşeler."
+  },
+  {
+    id: "gallery-4",
+    title: "Pompadour Stil",
+    category: "Stil",
+    icon: <Scissors className="h-4 w-4" />,
+    description: "Zamana meydan okuyan, hacimli ve modern saç modelleri."
   },
   {
     id: "gallery-6",
-    title: "Katlı Kesim",
-    category: "Saç Kesimi",
-    icon: <Scissors className="h-4 w-4" />,
-    description: "Doğal görünüm için hassas makas işçiliği."
-  },
-  {
-    id: "gallery-7",
-    title: "Renk Değişimi",
-    category: "Saç Boyama",
-    icon: <Sparkles className="h-4 w-4" />,
-    description: "Doğal gri kapatma ve modern renk uygulamaları."
-  },
-  {
-    id: "gallery-8",
-    title: "Premium Terapi",
-    category: "Saç Bakımı",
-    icon: <Wind className="h-4 w-4" />,
-    description: "Saç derisini canlandıran özel yıkama ve masaj."
+    title: "Atmosferimiz",
+    category: "İç Mekan",
+    icon: <Store className="h-4 w-4" />,
+    description: "Royal Cuts kalitesini yansıtan özel tasarım alanlarımız."
   },
   {
     id: "gallery-9",
-    title: "Grafik Tasarım",
-    category: "Stil Sanatı",
-    icon: <Scissors className="h-4 w-4" />,
-    description: "Saç dövmeleri ve keskin yan hat uygulamaları."
+    title: "Usta İşçilik",
+    category: "Sanat",
+    icon: <CheckCircle className="h-4 w-4" />,
+    description: "Hassas makas hareketleri ile size özel dokunuşlar."
   }
 ];
 
@@ -82,14 +82,14 @@ export default function GalleryPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest">
-              <CheckCircle className="h-3 w-3" /> Stil Rehberi & Portfolyo
+              <Camera className="h-3 w-3" /> Royal Cuts Portfolyo
             </div>
             <h1 className="text-6xl md:text-8xl font-headline font-bold text-foreground leading-[0.9]">
-              Görünümünü <br />
-              <span className="text-primary italic">Keşfet.</span>
+              Stilini <br />
+              <span className="text-primary italic">Seç.</span>
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto">
-              Royal Cuts koltuğundan çıkan her çalışma bir sanat eseridir. Size en uygun stili bulmak için galerimize göz atın.
+              Salonumuzun atmosferini ve ustalarımızın elinden çıkan en iyi çalışmaları keşfedin. Size en uygun tarz burada saklı.
             </p>
           </div>
         </div>
@@ -100,16 +100,20 @@ export default function GalleryPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
           {portfolioItems.map((item) => {
             const imgData = PlaceHolderImages.find(img => img.id === item.id);
+            // Default hints if not found in list to ensure quality
+            const hint = imgData?.imageHint || (item.category === "İç Mekan" ? "barbershop interior" : "mens haircut");
+            const url = imgData?.imageUrl || `https://picsum.photos/seed/${item.id}/800/1000`;
+            
             return (
               <div key={item.id} className="group flex flex-col space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] border border-border/50 bg-card shadow-2xl transition-all duration-500 hover:shadow-primary/20 hover:border-primary/30">
                   <Image
-                    src={imgData?.imageUrl || `https://picsum.photos/seed/${item.id}/800/1000`}
+                    src={url}
                     alt={item.title}
                     fill
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    data-ai-hint={imgData?.imageHint || "barber haircut"}
+                    data-ai-hint={hint}
                   />
                   {/* Decorative Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
@@ -141,14 +145,14 @@ export default function GalleryPage() {
         <div className="relative rounded-[3rem] bg-card/50 border border-border/50 p-12 md:p-20 overflow-hidden text-center space-y-10">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(38,217,205,0.1),transparent)]" />
           <h2 className="text-4xl md:text-6xl font-headline font-bold max-w-2xl mx-auto leading-tight relative z-10">
-            Kendi Stilini Yaratmaya <br /><span className="text-primary">Hazır mısın?</span>
+            Farkı Bizzat <br /><span className="text-primary">Deneyimleyin.</span>
           </h2>
           <div className="flex flex-col sm:flex-row justify-center gap-6 relative z-10">
             <Button asChild size="lg" className="h-16 px-12 text-lg font-bold bg-primary text-primary-foreground shadow-xl">
               <Link href="/book">Randevu Oluştur</Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="h-16 px-12 text-lg font-bold border-primary text-primary hover:bg-primary/5">
-              <Link href="/services">Hizmetlere Göz At</Link>
+              <Link href="/services">Tüm Hizmetler</Link>
             </Button>
           </div>
         </div>
