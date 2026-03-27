@@ -1,0 +1,126 @@
+{
+  "name": "Randevu Hatırlatma",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4ed11045-b45e-4053-b87a-69a6511334ad",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1YidH9P7yQ9tJ_mkMiAx_pUWjp0u9xRk6UOUSRpAjR_s",
+          "mode": "list",
+          "cachedResultName": "Randevular",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YidH9P7yQ9tJ_mkMiAx_pUWjp0u9xRk6UOUSRpAjR_s/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sayfa1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YidH9P7yQ9tJ_mkMiAx_pUWjp0u9xRk6UOUSRpAjR_s/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "date",
+              "lookupValue": "={{ $today.plus(1, 'day').toFormat('yyyy-MM-dd') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        0
+      ],
+      "id": "0ec2212d-4d8d-47d6-b99f-7a5d7c3e2cde",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "bj7hPif2rIHy5Eig",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "randevu@salon.com",
+        "toEmail": "={{ $json.email }}",
+        "subject": "Yarınki Randevunuzu Unutmayın!",
+        "html": "=Sayın {{ $json.fullName }},\n\nYarın saat {{ $json.time }}'deki \n{{ $json.serviceType }} randevunuzu \nunutmayın!\n\nSizi bekliyoruz 💈\nRoyal Cuts Erkek Kuaförü",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        432,
+        0
+      ],
+      "id": "b0ca9398-8599-45a9-a244-26befc0561b6",
+      "name": "Send email",
+      "webhookId": "1b23a8aa-6d75-4caa-a7df-90b937a90830",
+      "credentials": {
+        "smtp": {
+          "id": "w4uX15uzEKF1OxkK",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "842bd290-25d5-47c1-84ca-47cb6fe83b18",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8bc5b8df404fca3c062681e9a1eada7b50706754a9e9846bff8eadaab6aa9d3a"
+  },
+  "id": "5p2HNhip5YI9TWCj",
+  "tags": []
+}

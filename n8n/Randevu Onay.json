@@ -1,0 +1,186 @@
+{
+  "name": "Randevu Onay",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "randevu",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "8a9b802d-695b-4fac-ab50-6a22dd76a90f",
+      "name": "Webhook",
+      "webhookId": "4a0df34f-366d-40cb-be01-f944375d0eac"
+    },
+    {
+      "parameters": {
+        "fromEmail": "randevu@salon.com",
+        "toEmail": "={{ $json.body.email }}",
+        "subject": "=Randevunuz Onaylandı! {{ $json.body.serviceType }} - {{ $json.body.date }} {{ $json.body.time }}",
+        "html": "=Sayın {{ $json.body.fullName }},\n\nRandevunuz başarıyla alınmıştır.\n\nHizmet: {{ $json.body.serviceType }}\nTarih: {{ $json.body.date }}\nSaat: {{ $json.body.time }}\n\nSizi bekliyoruz!\nRoyal Cuts Erkek Kuaförü",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "ed20671e-5b84-4fb4-b82b-7aba080b4e72",
+      "name": "Send email",
+      "webhookId": "ea173afb-76a2-4657-9349-20dd6408ae62",
+      "credentials": {
+        "smtp": {
+          "id": "w4uX15uzEKF1OxkK",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1YidH9P7yQ9tJ_mkMiAx_pUWjp0u9xRk6UOUSRpAjR_s",
+          "mode": "list",
+          "cachedResultName": "Randevular",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YidH9P7yQ9tJ_mkMiAx_pUWjp0u9xRk6UOUSRpAjR_s/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sayfa1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YidH9P7yQ9tJ_mkMiAx_pUWjp0u9xRk6UOUSRpAjR_s/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "fullName": "={{ $('Webhook').item.json.body.fullName }}",
+            "phone": "={{ $('Webhook').item.json.body.phone }}",
+            "email": "={{ $('Webhook').item.json.body.email }}",
+            "serviceType": "={{ $('Webhook').item.json.body.serviceType }}",
+            "time": "={{ $('Webhook').item.json.body.time }}",
+            "date": "={{ $('Webhook').item.json.body.date }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "fullName",
+              "displayName": "fullName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "time",
+              "displayName": "time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "serviceType",
+              "displayName": "serviceType",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        416,
+        0
+      ],
+      "id": "637f3c26-03eb-4b28-b3d6-415a6aacdee3",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "bj7hPif2rIHy5Eig",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Send email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send email": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "374188ed-64dd-4572-884e-f34eb56a0cfa",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8bc5b8df404fca3c062681e9a1eada7b50706754a9e9846bff8eadaab6aa9d3a"
+  },
+  "id": "OszWlQ3A8c0nXvWY",
+  "tags": []
+}
