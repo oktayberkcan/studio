@@ -10,9 +10,9 @@ Bu proje, modern bir berber dükkanı için hazırlanmış, Next.js 15, Tailwind
 - **Stil Portfolyosu:** Yapılan işlemlerin sergilendiği modern galeri.
 - **Mobil Uyumlu:** Tüm cihazlarda kusursuz çalışan duyarlı tasarım.
 
-## Başlangıç
+## Yerel Kurulum Adımları
 
-Projeyi yerel bilgisayarınızda çalıştırmak için aşağıdaki adımları izleyin:
+Projeyi bilgisayarınıza indirdikten sonra şu adımları izleyin:
 
 1. **Bağımlılıkları Yükleyin:**
    ```bash
@@ -20,7 +20,7 @@ Projeyi yerel bilgisayarınızda çalıştırmak için aşağıdaki adımları i
    ```
 
 2. **Çevre Değişkenlerini Ayarlayın:**
-   `.env.local` dosyası oluşturun ve Firebase yapılandırma bilgilerinizi ekleyin:
+   `.env.local` dosyası oluşturun ve Firebase yapılandırma bilgilerinizi ekleyin (Firebase Console'dan alabilirsiniz):
    ```env
    NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
@@ -36,16 +36,20 @@ Projeyi yerel bilgisayarınızda çalıştırmak için aşağıdaki adımları i
    ```
 
 4. **Tarayıcıda Açın:**
-   `http://localhost:9002` adresine gidin.
+   `http://localhost:9002` (veya terminalde belirtilen port) adresine gidin.
 
-## Teknolojiler
+## GitHub'a Yükleme (İlk Commit)
 
-- **Framework:** Next.js 15 (App Router)
-- **Styling:** Tailwind CSS
-- **UI Components:** Radix UI & ShadCN
-- **Backend:** Firebase (Firestore & Auth)
-- **AI Integration:** Google Gemini (Genkit)
-- **Icons:** Lucide React
+Aşağıdaki komutları terminalinizde sırasıyla çalıştırarak projenizi GitHub'a gönderebilirsiniz:
+
+```bash
+git init
+git add .
+git commit -m "ilk commit"
+git remote add origin https://github.com/oktayberkcan/Kucuk-Isletme-Tanitim-Sitesi-Randevu-.git
+git branch -M main
+git push -u origin main
+```
 
 ---
 © 2024 Royal Cuts. Tüm hakları saklıdır.
