@@ -12,33 +12,20 @@ Bu proje, modern bir berber dükkanı için hazırlanmış, Next.js 15, Tailwind
 
 ## Yerel Kurulum Adımları
 
-Projeyi bilgisayarınıza indirdikten sonra şu adımları izleyin:
+Projeyi bilgisayarınıza indirdikten (Download ZIP) ve klasöre çıkardıktan sonra şu adımları izleyin:
 
-1. **Bağımlılıkları Yükleyin:**
+1. **Terminali Açın:** Proje klasörünün içinde bir terminal (CMD, PowerShell veya Terminal) açın.
+2. **Bağımlılıkları Yükleyin:**
    ```bash
    npm install
    ```
-
-2. **Çevre Değişkenlerini Ayarlayın:**
-   `.env.local` dosyası oluşturun ve Firebase yapılandırma bilgilerinizi ekleyin (Firebase Console'dan alabilirsiniz):
-   ```env
-   NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
-   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
-   NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
-   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
-   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-   NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
-   ```
-
 3. **Geliştirme Sunucusunu Başlatın:**
    ```bash
    npm run dev
    ```
+4. **Tarayıcıda Açın:** `http://localhost:9002` adresine gidin.
 
-4. **Tarayıcıda Açın:**
-   `http://localhost:9002` (veya terminalde belirtilen port) adresine gidin.
-
-## GitHub'a Yükleme (İlk Commit)
+## GitHub'a Yükleme
 
 Aşağıdaki komutları terminalinizde sırasıyla çalıştırarak projenizi GitHub'a gönderebilirsiniz:
 
